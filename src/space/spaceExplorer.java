@@ -1,5 +1,5 @@
 /**
- * @(#)Rtype.java
+ * 
  *
  *
  * @author
@@ -9,6 +9,7 @@
 package space;
 
 import javax.swing.JFrame;
+import space.Board;
 
 public class spaceExplorer extends JFrame {
 

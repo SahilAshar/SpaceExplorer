@@ -9,6 +9,7 @@
 
 package space;
 
+
 import java.awt.Image;
 import java.awt.event.KeyEvent;
 
@@ -21,7 +22,8 @@ import javax.swing.ImageIcon;
 
 import java.util.ArrayList;
 
-public class Craft {
+public class Craft
+{
 
     private String craft = "craft.png";
 
@@ -30,16 +32,18 @@ public class Craft {
     private int x;
     private int y;
     private Image image;
+    boolean isVisible;
 
     private final int CRAFT_SIZE = 20;
     private ArrayList missiles;
 
     public Craft() {
-      	ImageIcon ii = new ImageIcon("resources/dummyCraft.png");
+      	ImageIcon ii = new ImageIcon("resources/dogeCraft.png");
 		image = ii.getImage();
-		missiles = new ArrayList();
+		missiles = new ArrayList<>();
         x = 40;
         y = 60;
+        isVisible = true;
     }
 
 
@@ -54,6 +58,11 @@ public class Craft {
 
     public int getY() {
         return y;
+    }
+
+    public void inVisible()
+    {
+    	isVisible = false;
     }
 
     public Image getImage() {

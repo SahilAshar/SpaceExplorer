@@ -13,7 +13,8 @@ import java.awt.Image;
 
 import javax.swing.ImageIcon;
 
-public class Missile {
+public class Missile
+{
 
     private int x, y;
     private Image image;
@@ -24,7 +25,7 @@ public class Missile {
 
     public Missile(int x, int y) {
 
-        ImageIcon ii = new ImageIcon("resources/missile.png");
+        ImageIcon ii = new ImageIcon("resources/coin.png");
         image = ii.getImage();
         visible = true;
         this.x = x;
