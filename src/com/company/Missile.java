@@ -1,27 +1,19 @@
+package com.company;
+
 /**
- * @(#)Missile.java
- *
- *
- * @author
- * @version 1.00 2014/5/21
+ * Created by Sahil on 5/23/2014.
+ * Version 1.0.0
  */
+import javax.swing.*;
+import java.awt.*;
 
-
-package space;
-
-import java.awt.Image;
-
-import javax.swing.ImageIcon;
-
-public class Missile
+class Missile
 {
 
-    private int x, y;
-    private Image image;
-    boolean visible;
-
-    private final int BOARD_WIDTH = 790;
-    private final int MISSILE_SPEED = 2;
+    private int x;
+    private final int y;
+    private final Image image;
+    private boolean visible;
 
     public Missile(int x, int y) {
 
@@ -50,7 +42,9 @@ public class Missile
     }
 
     public void move() {
+        int MISSILE_SPEED = 2;
         x += MISSILE_SPEED;
+        int BOARD_WIDTH = 790;
         if (x > BOARD_WIDTH)
             visible = false;
     }

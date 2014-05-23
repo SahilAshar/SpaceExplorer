@@ -1,19 +1,10 @@
-/**
- * 
- *
- *
- * @author
- * @version 1.00 2014/5/21
- */
+package com.company;
 
-package space;
-
-import javax.swing.JFrame;
-import space.Board;
+import javax.swing.*;
 
 public class spaceExplorer extends JFrame {
 
-    public spaceExplorer()
+    private spaceExplorer()
     {
 
         Board game = new Board();
@@ -22,10 +13,10 @@ public class spaceExplorer extends JFrame {
 
         setSize(800, 800);
         setLocationRelativeTo(null);
-        setTitle("Space Explorer");
+        setTitle("wow such explorer");
         setResizable(false);
         setVisible(true);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     }
 
     public static void main(String[] args)

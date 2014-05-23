@@ -1,49 +1,31 @@
+package com.company;
+
 /**
- * @(#)Craft.java
- *
- *
- * @author
- * @version 1.00 2014/5/21
+ * Created by Sahil on 5/23/2014.
+ * Version 1.0.0
  */
-
-
-package space;
-
-
-import java.awt.Image;
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.KeyEvent;
-
-import javax.imageio.ImageIO;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-
-import javax.swing.ImageIcon;
-
 import java.util.ArrayList;
 
-public class Craft
+class Craft
 {
-
-    private String craft = "craft.png";
 
     private int dx;
     private int dy;
     private int x;
     private int y;
-    private Image image;
-    boolean isVisible;
+    private final Image image;
 
-    private final int CRAFT_SIZE = 20;
-    private ArrayList missiles;
+    private final ArrayList<Missile> missiles;
 
     public Craft() {
-      	ImageIcon ii = new ImageIcon("resources/dogeCraft.png");
-		image = ii.getImage();
-		missiles = new ArrayList<>();
+        ImageIcon ii = new ImageIcon("resources/dogeCraft.png");
+        image = ii.getImage();
+        missiles = new ArrayList<Missile>();
         x = 40;
         y = 60;
-        isVisible = true;
     }
 
 
@@ -62,15 +44,14 @@ public class Craft
 
     public void inVisible()
     {
-    	isVisible = false;
     }
 
     public Image getImage() {
         return image;
     }
 
-    public ArrayList getMissiles() {
-    	return missiles;
+    public ArrayList<Missile> getMissiles() {
+        return missiles;
     }
 
     public void keyPressed(KeyEvent e) {
@@ -85,9 +66,9 @@ public class Craft
 //            dx = 1;
 //      }
 
-		if (key == KeyEvent.VK_SPACE){
-			fire();
-		}
+        if (key == KeyEvent.VK_SPACE){
+            fire();
+        }
         if (key == KeyEvent.VK_UP) {
             dy = -1;
         }
@@ -97,8 +78,9 @@ public class Craft
         }
     }
 
-    public void fire(){
-    	missiles.add(new Missile(x + CRAFT_SIZE, y + CRAFT_SIZE/2));
+    void fire(){
+        int CRAFT_SIZE = 20;
+        missiles.add(new Missile(x + CRAFT_SIZE, y + CRAFT_SIZE /2));
     }
 
     public void keyReleased(KeyEvent e) {
