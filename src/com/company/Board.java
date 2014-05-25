@@ -4,12 +4,19 @@ package com.company;
  * Created by Sahil on 5/23/2014.
  * Version 1.0.0
  */
+
+import javax.sound.midi.InvalidMidiDataException;
+import javax.sound.midi.MidiUnavailableException;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
 
@@ -24,11 +31,14 @@ class Board extends JPanel implements ActionListener {
 
     private final ArrayList<Block> blocks;
 
-    private boolean win = false;
+    public static boolean win = false;
+
+    Song dinklage;
+    Song dfault;
+    Song currentSong;
 
 
-    public Board()
-    {
+    public Board() throws IOException, UnsupportedAudioFileException, LineUnavailableException, MidiUnavailableException, InvalidMidiDataException {
         ImageIcon ii = new ImageIcon("resources/wallpaper-space.png");
         image = ii.getImage();
 
@@ -53,6 +63,10 @@ class Board extends JPanel implements ActionListener {
         blocks.add(new Block(300, 9, 9));
         blocks.add(new Block(750, 12, 12));
         blocks.add(new Block(650, 4, 4));
+
+        dinklage = new Song(new File("resources/dinklage.wav"));
+        currentSong = dinklage;
+        currentSong.play();
     }
 
     @Override
@@ -62,7 +76,7 @@ class Board extends JPanel implements ActionListener {
 
         if(win)
         {
-            craft.inVisible();
+
             ImageIcon qq = new ImageIcon("resources/win-screen.png");
             image = qq.getImage();
             g.drawImage(image, 1, 1, null);
@@ -85,27 +99,30 @@ class Board extends JPanel implements ActionListener {
     public void paint(Graphics g) {
         super.paint(g);
 
-        Graphics2D g2d = (Graphics2D)g;
-        g2d.drawImage(craft.getImage(), craft.getX(), craft.getY(), this);
+        if(!win)
+        {
+            Graphics2D g2d = (Graphics2D)g;
+            g2d.drawImage(craft.getImage(), craft.getX(), craft.getY(), this);
 
 
-        for (Block b : blocks) {
-            g2d.drawImage(b.getImage(), b.getX(), b.getY(), this);
-            b.move();
+            for (Block b : blocks) {
+                g2d.drawImage(b.getImage(), b.getX(), b.getY(), this);
+                b.move();
+            }
+
+            //drawInstructions(g);
+
+            ArrayList ms = craft.getMissiles();
+
+            for (Object m1 : ms) {
+                Missile m = (Missile) m1;
+
+                g2d.drawImage(m.getImage(), m.getX(), m.getY(), this);
+            }
+
+            Toolkit.getDefaultToolkit().sync();
+            g.dispose();
         }
-
-        //drawInstructions(g);
-
-        ArrayList ms = craft.getMissiles();
-
-        for (Object m1 : ms) {
-            Missile m = (Missile) m1;
-
-            g2d.drawImage(m.getImage(), m.getX(), m.getY(), this);
-        }
-
-        Toolkit.getDefaultToolkit().sync();
-        g.dispose();
     }
 
 
@@ -156,7 +173,7 @@ class Board extends JPanel implements ActionListener {
                 {
                     Block a = blocks.get(q);
 
-                    if((m.getX()+35 >= a.getX()) && ((m.getY()>=a.getY()) && (m.getY()<=a.getY()+75)))
+                    if(((m.getX() + 35) >= a.getX()) && ((m.getY() >= a.getY()) && (m.getY() <= (a.getY() + 50))))
                     {
                         ms.remove(i);
                         blocks.remove(q);
@@ -194,10 +211,18 @@ class Board extends JPanel implements ActionListener {
                 ms.remove(i);
         }
 
-        craft.move();
+        if(!win)
+        {
+            moveCraft();
+        }
         repaint();
     }
 
+
+    public void moveCraft()
+    {
+        craft.move();
+    }
 
     private class TAdapter extends KeyAdapter {
 

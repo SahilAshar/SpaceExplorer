@@ -12,13 +12,14 @@ import java.util.ArrayList;
 class Craft
 {
 
-    private int dx;
+    // private int dx;
     private int dy;
     private int x;
     private int y;
     private final Image image;
 
     private final ArrayList<Missile> missiles;
+
 
     public Craft() {
         ImageIcon ii = new ImageIcon("resources/dogeCraft.png");
@@ -30,7 +31,7 @@ class Craft
 
 
     public void move() {
-        x += dx;
+        //x += dx;
         y += dy;
     }
 
@@ -66,8 +67,14 @@ class Craft
 //            dx = 1;
 //      }
 
-        if (key == KeyEvent.VK_SPACE){
-            fire();
+        if (key == KeyEvent.VK_SPACE)
+        {
+
+            if(!Board.win)
+            {
+                fire();
+            }
+
         }
         if (key == KeyEvent.VK_UP) {
             dy = -1;
