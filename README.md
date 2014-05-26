@@ -3,7 +3,7 @@ Space Explorer
 
 Welcome to Space Explorer v2.0! 
 
-To play, download the repository, and just run the doge_explorer.jar file! It's pretty simple, and easy to play!
+To play, download the repository, and just run the RunGame.bat file! It's pretty simple, and easy to play!
 
 What's new in 2.0?
 =============
