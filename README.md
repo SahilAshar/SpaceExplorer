@@ -1,15 +1,22 @@
-SpaceExplorer
+Space Explorer
 =============
 
-Welcome to Doge Explorer v1.0! 
+Welcome to Space Explorer v2.0! 
 
 To play, download the repository, and just run the doge_explorer.jar file! It's pretty simple, and easy to play!
+
+What's new in 2.0?
+=============
+
+-Patched the error where the ship did not dissapear.
+-Updated graphics
+-There's now a cool Easter Egg in the game, and I'm going to tell you what it is because I'm nice. Press the '`' or '~' key next to the ONE key to activate it!
 
 
 Controls
 =============
 
-The UP and DOWN arrow keys control doge, and SPACE is shoot! 
+The UP and DOWN arrow keys control the ship, and SPACE is shoot! 
 
 
 
