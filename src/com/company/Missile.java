@@ -13,20 +13,29 @@ class Missile
     private int x;
     private final int y;
     private final Image image;
+    private final Image eImage;
     private boolean visible;
 
     public Missile(int x, int y) {
 
-        ImageIcon ii = new ImageIcon("resources/coin.png");
+        ImageIcon ii = new ImageIcon("resources/missile.png");
         image = ii.getImage();
+
+        ImageIcon ww = new ImageIcon("resources/coin.png");
+        eImage = ww.getImage();
+
         visible = true;
         this.x = x;
         this.y = y;
     }
 
 
-    public Image getImage() {
-        return image;
+    public Image getImage()
+    {
+        if(Board.easter)
+            return eImage;
+        else
+            return image;
     }
 
     public int getX() {

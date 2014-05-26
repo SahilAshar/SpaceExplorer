@@ -14,7 +14,8 @@ class Block
     private final int xSpeed;
     private final int x;
     private int y;
-    private final Image image;
+    private Image image;
+    private Image eImage;
     private final boolean visible;
     private boolean moving;
 
@@ -23,6 +24,7 @@ class Block
     {
         ImageIcon ii = new ImageIcon("resources/wowBlock.png");
         image = ii.getImage();
+        eImage = ii.getImage();
 
         x = ix;
         y = 5;
@@ -69,7 +71,32 @@ class Block
 
     public Image getImage()
     {
-        return image;
+            return image;
+    }
+
+    public void setEBlock()
+    {
+        if(Board.easter)
+        {
+            int q = Board.getBlocks().size();
+            int u = (int) (Math.random()*q);
+
+            switch(u)
+            {
+                case 0: ImageIcon qq = new ImageIcon("resources/2+4.png");
+                    image = qq.getImage(); break;
+                case 1: ImageIcon ww = new ImageIcon("resources/18-5.png");
+                    image = ww.getImage(); break;
+                case 2: ImageIcon uu = new ImageIcon("resources/6div3.png");
+                    image = uu.getImage(); break;
+                case 3: ImageIcon yy = new ImageIcon("resources/723.png");
+                    image = yy.getImage(); break;
+                case 4: ImageIcon hh = new ImageIcon("resources/24div8.png");
+                    image = hh.getImage(); break;
+
+            }
+
+        }
     }
 
     public int getYSpeed()

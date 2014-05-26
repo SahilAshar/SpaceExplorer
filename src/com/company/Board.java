@@ -22,25 +22,27 @@ import java.util.ArrayList;
 
 class Board extends JPanel implements ActionListener {
 
-    private final Craft craft;
-
-    private final int health;
-    private int ammo;
-    private final int score;
-    private Image image;
-
-    private final ArrayList<Block> blocks;
-
     public static boolean win = false;
-
+    public static boolean easter = false;
+    public static boolean devTools = false;
+    private final Craft craft;
+    private final int health;
+    private final int score;
+    private static ArrayList<Block> blocks;
     Song dinklage;
-    Song dfault;
+    Song dogesong;
     Song currentSong;
+    private int ammo;
+    //private Image image;
+    private Image background;
+    private Image winscreen;
+    public boolean canPress = true;
+    private Block block;
+
 
 
     public Board() throws IOException, UnsupportedAudioFileException, LineUnavailableException, MidiUnavailableException, InvalidMidiDataException {
-        ImageIcon ii = new ImageIcon("resources/wallpaper-space.png");
-        image = ii.getImage();
+
 
         addKeyListener(new TAdapter());
         setFocusable(true);
@@ -65,35 +67,42 @@ class Board extends JPanel implements ActionListener {
         blocks.add(new Block(650, 4, 4));
 
         dinklage = new Song(new File("resources/dinklage.wav"));
+        dogesong = new Song(new File("resources/dogesong.wav"));
         currentSong = dinklage;
         currentSong.play();
     }
 
     @Override
-    protected void paintComponent(Graphics g)
-    {
+    protected void paintComponent(Graphics g) {
         super.paintComponent(g);
 
-        if(win)
+        if (win && easter)
         {
 
-            ImageIcon qq = new ImageIcon("resources/win-screen.png");
-            image = qq.getImage();
-            g.drawImage(image, 1, 1, null);
+            ImageIcon qq = new ImageIcon("resources/dogewin-screen.png");
+            winscreen = qq.getImage();
+            g.drawImage(winscreen, 1, 1, null);
         }
-        else
-            g.drawImage(image, 1, 1, null);
-    }
+        else if (win)
+        {
+            ImageIcon qq = new ImageIcon("resources/win-screen.png");
+            winscreen = qq.getImage();
+            g.drawImage(winscreen, 1, 1, null);
+        }
+        else if (!win && easter)
+        {
+            ImageIcon ii = new ImageIcon("resources/dogemoon.png");
+            background = ii.getImage();
+            g.drawImage(background, 1, 1, null);
+        }
+        else if (!win)
+        {
+            ImageIcon ii = new ImageIcon("resources/wallpaper-space.png");
+            background = ii.getImage();
+            g.drawImage(background, 1, 1, null);
+        }
 
-    //    public void gameLoop()
-//	{
-//    	while(true) //the loop
-//   		{
-//        	doGameUpdates();
-//
-//        	Thread.sleep(1); //the timing mechanism
-//    	}
-//	}
+    }
 
 
     public void paint(Graphics g) {
@@ -105,7 +114,8 @@ class Board extends JPanel implements ActionListener {
             g2d.drawImage(craft.getImage(), craft.getX(), craft.getY(), this);
 
 
-            for (Block b : blocks) {
+            for (Block b : blocks)
+            {
                 g2d.drawImage(b.getImage(), b.getX(), b.getY(), this);
                 b.move();
             }
@@ -123,6 +133,11 @@ class Board extends JPanel implements ActionListener {
             Toolkit.getDefaultToolkit().sync();
             g.dispose();
         }
+    }
+
+    public static ArrayList<Block> getBlocks()
+    {
+        return blocks;
     }
 
 
@@ -173,13 +188,14 @@ class Board extends JPanel implements ActionListener {
                 {
                     Block a = blocks.get(q);
 
-                    if(((m.getX() + 35) >= a.getX()) && ((m.getY() >= a.getY()) && (m.getY() <= (a.getY() + 50))))
+                    if(((m.getX()) >= a.getX()) && ((m.getY() >= a.getY()) && (m.getY() <= (a.getY() + 50))))
                     {
                         ms.remove(i);
                         blocks.remove(q);
                         if(blocks.size() == 0)
                         {
                             win = true;
+                            canPress = false;
                             repaint();
                         }
                     }
@@ -218,11 +234,25 @@ class Board extends JPanel implements ActionListener {
         repaint();
     }
 
+    public void setEaster()
+    {
+        easter = true;
+
+        for(Block b:blocks)
+        {
+            b.setEBlock();
+        }
+        currentSong.stop();
+        currentSong = dogesong;
+        currentSong.play();
+        repaint();
+    }
 
     public void moveCraft()
     {
         craft.move();
     }
+
 
     private class TAdapter extends KeyAdapter {
 
@@ -230,8 +260,21 @@ class Board extends JPanel implements ActionListener {
             craft.keyReleased(e);
         }
 
-        public void keyPressed(KeyEvent e) {
-            craft.keyPressed(e);
+        public void keyPressed(KeyEvent e)
+        {
+            if(canPress)
+            {
+                craft.keyPressed(e);
+
+                switch (e.getKeyChar()) {
+                    case '`':
+                        setEaster();
+                        break;
+                    case '=':
+                        devTools = true;
+                        break;
+                }
+            }
         }
     }
 

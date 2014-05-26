@@ -1,0 +1,1 @@
+java -jar doge_explorer.jar

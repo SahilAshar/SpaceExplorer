@@ -17,13 +17,18 @@ class Craft
     private int x;
     private int y;
     private final Image image;
+    private final Image eImage;
 
     private final ArrayList<Missile> missiles;
 
 
     public Craft() {
-        ImageIcon ii = new ImageIcon("resources/dogeCraft.png");
+        ImageIcon ii = new ImageIcon("resources/craft.png");
         image = ii.getImage();
+
+        ImageIcon ww = new ImageIcon("resources/dogeCraft.png");
+        eImage = ww.getImage();
+
         missiles = new ArrayList<Missile>();
         x = 40;
         y = 60;
@@ -47,8 +52,12 @@ class Craft
     {
     }
 
-    public Image getImage() {
-        return image;
+    public Image getImage()
+    {
+       if(Board.easter)
+            return eImage;
+        else
+            return image;
     }
 
     public ArrayList<Missile> getMissiles() {
