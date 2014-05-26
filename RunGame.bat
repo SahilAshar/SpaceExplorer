@@ -1,1 +1,1 @@
-java -jar doge_explorer.jar
+java -jar space_explorer.jar
